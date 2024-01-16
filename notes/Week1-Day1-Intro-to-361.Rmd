@@ -91,7 +91,11 @@ ChatGPT: Data analysis is the process of examining, cleaning, transforming, and 
 
 ## Rest of Week 1
 
+- Co-DUS. Primary advisor for class of 2026 (sophomores).  
+- GPT 4 Walled Garden
 - Github copilot
 - Notes
-- Learning
-- `Visualization-Examples.html`
+- Github usages throughout the semester
+- Active Learning, Visualizations
+- Other visualization examples 
+- Water
