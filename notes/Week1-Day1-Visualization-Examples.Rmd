@@ -1,0 +1,278 @@
+---
+title: "Visualization Examples"
+author: "Brian Macdonald"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, 
+                      include=T, 
+                      warning=F, 
+                      message=F, 
+                      fig.align='center', 
+                      out.width = "70%")
+library(tidyverse)
+library(plotly)
+library(scales)
+library(knitr)
+library(pubtheme)
+
+```
+
+## Visualization examples 
+
+Examples of 
+
+- Bar, line, scatter plot
+- Faceting; Coloring and sizing by different variables
+- Animations
+- Logos, images
+- Maps
+
+using
+
+- `tidyverse` (specifically, `ggplot2`)
+- `plotly`
+- `gganimate`
+- `leaflet`
+
+## Lots of sports examples
+
+- I'll show lots of examples using sports data, but you don't need to know anything about sports to appreciate them
+- You won't know need to know how to create all of these. I'm just showing you what is possible. 
+
+## Scatter plot
+
+```{r}
+include_graphics('img/Team Strikeouts in Year 1 and Year 2, Without Trendline.jpg') 
+```
+
+## Scatter plot with trendline
+
+```{r}
+include_graphics('img/Team Strikeouts in Year 1 and Year 2, with trendline.jpg', ) 
+```
+
+## Scatter plot with different background
+
+```{r  out.width = "100%"}
+include_graphics('img/NHL-Goals.jpg') 
+```
+
+## Color based on a variable
+
+```{r  out.width = "100%"}
+include_graphics('img/NHL-Goals-and-Shots.jpg') 
+```
+
+## Size based on a variable
+
+```{r  out.width = "100%"}
+include_graphics('img/Map of Initial Hubs and Confirmed Partners.png') 
+```
+
+## Scatter plot with text
+```{r}
+include_graphics('img/Playoff BPI vs BPI, All Teams.jpg') 
+```
+
+## Scatter plot with text
+```{r}
+include_graphics('img/Playoff BPI vs BPI, All Teams, With Text Labels.jpg') 
+```
+
+## Scatter with colors and colored text
+
+```{r}
+include_graphics('img/SH in 2018 and 2019.jpg') 
+```
+
+
+## Bar plot
+```{r}
+include_graphics('img/Bar example - Tua Tagovailoa - Chance To Be Selected At Each Pick, After Pick 0 (2).jpg') 
+```
+
+## Line plot
+
+```{r}
+include_graphics('img/Shot attempts over time, NBA.jpg') 
+```
+
+## Faceting
+
+```{r out.width="55%"}
+include_graphics('img/Shooting percentages over time, NBA.jpg') 
+```
+
+
+## Grid plot
+
+```{r}
+include_graphics('img/Chance That AFC Teams Will Reach Each Win Total - by division - with names.jpg') 
+```
+
+## Grid plot
+
+```{r}
+include_graphics('img/predraft2021.jfif') 
+```
+
+## Grid: matrix of indicators
+```{r}
+include_graphics('img/data.example.png') 
+```
+
+## Animated points
+
+```{r out.width="100%"}
+include_graphics('img/bball.locations.gif') 
+```
+
+
+## Animated points, lines, and bars
+
+```{r out.width="100%"}
+include_graphics('img/bball.horizontal.gif') 
+```
+
+
+## Animated points, lines, and histogram
+
+```{r out.width="40%"}
+include_graphics('img/fball.locations.and.dist.gif') 
+```
+
+## Animated points following tunnels
+
+
+```{r out.width="100%"}
+include_graphics('img/Transitions In and Out of the NHL, Forwards.gif') 
+```
+
+
+## Animated flight paths
+
+```{r}
+include_graphics('img/flight-locations.gif')
+```
+
+
+## Animated bar plot
+```{r}
+include_graphics('img/NFL Draft Predictor animation - Tua Tagovailoa - Chance To Be Selected At Each Pick Thru 5.gif') 
+```
+
+
+## Reordering and vanishing bars
+
+```{r out.width="50%"}
+include_graphics('img/SPI Chance To Reach UCL Semifinals- Moving Bars.gif') 
+```
+
+## Animated Grid Plot
+
+[NFL Draft animation](https://twitter.com/bburkeESPN/status/1387962987789570048)
+
+## Heat maps with points on a map of South FL
+
+```{r out.width="90%"}
+include_graphics('img/South FL maps.png') 
+```
+
+## (Animated) Scatter plot with images
+
+```{r out.width="80%"}
+include_graphics('img/mlb.All MLB.travel.2018.opening.day.to.allstar.break.gif') 
+```
+
+## Animated line plot with images
+
+```{r out.width="80%"}
+include_graphics('img/mlb.All MLB.2018.miles.opening.day.to.allstar.break.gif') 
+```
+
+## Images as annotations
+
+```{r}
+include_graphics('img/LeBron and Giannis with image.jpg')
+```
+
+## Interactive viz with tooltips
+
+https://bmac.shinyapps.io/NFLexample/
+
+## Interactive with linking
+The two plots are linked so that if you click a point on one plot, the corresponding point for the same team is highlighted in the other plot. 
+
+```{r}
+d = read.csv('data/bpi.csv')
+colnames(d) = c('rank', 'off', 'def', 'bpi', 'playoff')
+dd = d %>% 
+  mutate(team=gsub('[0-9]+. ', '', rank))
+#head(d)
+```
+
+```{r}
+
+base = plot_ly(dd %>% 
+                 highlight_key(~team), 
+               width=400*2, 
+               height=400)
+
+p1 = base %>%
+  add_trace(x=~bpi,
+            y=~playoff, 
+            colors=pubred,
+            type='scatter',
+            mode='markers', 
+            showlegend=F, 
+            text=~team, 
+            hoverinfo='text'
+            ) %>%
+  layout(
+    title = list(text='BPI vs Playoff BPI', x=0, xanchor='left', yanchor='bottom', pad=list(l=50, b=0))
+  ) %>%
+  highlight(on = "plotly_click", off = "plotly_doubleclick")
+
+#p1
+
+p2 = base %>%
+  add_trace(x=~off, 
+            y=~def, 
+            colors=pubred, 
+            type='scatter',
+            mode='markers', 
+            showlegend=F, 
+            text=~team, 
+            hoverinfo='text') %>%
+  #add_lines(showlegend=F) %>%
+  #add_markers(showlegend=F, hovertemplate=~text) %>%
+  layout(
+    # margin = list(l = 80, r = 80, b = 80, t = 80, pad=0), # outer margin
+    title = list(text='Off vs Def BPI', x=0, xanchor='left', yanchor='bottom', pad=list(l=50, b=0)),
+    # yaxis = list(title = 'Proportion of Population', 
+    #              range = c(0, .04), 
+    #              zeroline=F),
+    # xaxis = list(title = 'Year' 
+    #              #range = c(2005, 2024), 
+    #              #tickvals = list(2010,2019), 
+    #              #ticklen = 5
+    #              ), 
+    # legend = list(orientation = 'h',  
+    #               x=0,
+    #               y=1.02, yanchor='bottom'), 
+    paper_bgcolor = pubbackgray, 
+    plot_bgcolor = pubbackgray
+    ) %>%
+  highlight(on = "plotly_click", off = "plotly_doubleclick") %>%
+  config(displayModeBar = FALSE)
+#p2
+
+p = subplot(p1, p2, widths = c(.5, .5), margin = .1, 
+            titleX=T, titleY=T) %>%
+  layout(showlegend = FALSE) %>%
+  highlight(on = "plotly_click")
+p
+```
+
