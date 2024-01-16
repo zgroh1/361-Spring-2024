@@ -24,7 +24,7 @@ library(knitr)
 
 #### 1. Complete the Course Survey in the Quizzes section of Canvas  
 
-After you submit the quiz, take a screenshot of the time stamp and Question 1. It should look something like this. ZZZZ
+After you submit the quiz, take a screenshot of the time stamp and Question 1. It should look something like this. 
 
 ![](img/snip of Course Survey.png)
 
@@ -99,7 +99,7 @@ library(pubtheme)
 
 #### 5. Check `gganimate`
 
-See https://bmacgtpm.github.io/notes/software-installation.html. The code from that page is below, except a custom title has been added. Replace my name with yours, run this code, and make sure the animated gif appears when you knit your document. 
+See https://bmacgtpm.github.io/notes/software-installation.html. The code from that page is below, except a custom title has been added. Replace my name with yours, uncomment the animation code, run all of this code.
 
 ```{r}
 # We'll start with a static plot
@@ -114,19 +114,25 @@ a = g +
   transition_states(Species,
                     transition_length = 2,
                     state_length = 1)
-a
-anim_save(a, 
-          filename = 'img/test.gif')
+
+#a  ## check that the animation works
+
+## save the animation
+# anim_save(a, 
+#           filename = 'img/test animation.gif')
 
 ```
 
 There should be a static plot and an animated plot above. 
 If the `anim_save` worked properly there should be a new `test.gif`
-in the `img` folder that has your name. Your `gif` will appear here: 
+in the `img` folder that has your name. Take a screen shot of your animated gif when the points are near the upper right and show the screenshot here: 
 
-![](img/test.gif)
+![](img/snip of test animation.png)
+
 
 If all of that works, `gganimate` is good to go!  If that doesn't work, see the tips at https://bmacgtpm.github.io/notes/software-installation.html.
+
+Once you have created the animation, comment out the code that creates the animation (as I have done above). This document won't knit to PDF with the animation code in it. You can only knit to HTML. 
 
 #### 6. Bookmarks
 
@@ -137,17 +143,26 @@ See https://bmacgtpm.github.io/notes/software-installation.html.
 
 #### 7. Create a GitHub account at <https://github.com/> if you don't have one. Submit your GitHub username in Quizzes -> Course Survey on Canvas.
 
-#### 8. Download GitHub Desktop at <https://desktop.github.com/>. If you have experience with Git/Github, and prefer to use different software or the command line, that's fine, but we may not be able to help if you have a problem. Upload a screenshot here showing Github Desktop (or different software, or the command line). 
+#### 8. Download GitHub Desktop at <https://desktop.github.com/>. 
+
+Take a screenshot showing Github Desktop (or different software, or the command line) and show it here. 
+
 
 ![](img/snip of GitHub Desktop.png)
 
-#### 9. Clone the repo <https://github.com/bmacGTPM/361-Spring-2024>.   Create a new branch and name it your first and last name. Make an edit to the R Markdown file `pset00-GitHub-pull-request-Firstname-Lastname.Rmd` to have your name at the top instead of mine. Commit that to your branch, push those commits to GitHub, and create a pull-request to the `main` branch on the 361-Spring-2024 repo. For help getting started, see <https://docs.github.com/en/desktop/installing-and-configuring-github-desktop/overview/getting-started-with-github-desktop>.
+If you have experience with Git/Github, and prefer to use different software or the command line, that's fine, but we may not be able to help if you have a problem.
 
-#### 10. Github Copilot in RStudio
+#### 9. Clone the repo <https://github.com/bmacGTPM/361-Spring-2024> and create PR as follows.
+
+Clone the repo, create a new branch and name the branch `Firstname Lastname` your first and last name. Make an edit to the R Markdown file `pset00-GitHub-pull-request-Firstname-Lastname.Rmd` to have your name at the top instead of mine. Commit that to your branch, push those commits to GitHub, and create a pull-request to the `main` branch on the 361-Spring-2024 repo. For help getting started, see <https://docs.github.com/en/desktop/installing-and-configuring-github-desktop/overview/getting-started-with-github-desktop>.
+
+#### 10. Set up Github Copilot in RStudio
 
 See https://bmacgtpm.github.io/notes/github-copilot-in-rstudio.html.  
 
+![](img/snip of GitHub Copilot.png)
 
+If you use Github Copilot elsewhere, take a screenshot of whatever software you use.
 
 
 
