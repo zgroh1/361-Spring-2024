@@ -37,7 +37,9 @@ See https://bmacgtpm.github.io/notes/software-installation.html for some potenti
 The following code will show your version of R when you knit the document. It should say `R version 4.3.2` or later. Make sure it appears when you knit your document.  
 
 ```{r}
-R.Version()$version.string
+R.Version()$version.string 
+
+#read
 ```
 
 #### 3. Download and install the latest version of RStudio. 
