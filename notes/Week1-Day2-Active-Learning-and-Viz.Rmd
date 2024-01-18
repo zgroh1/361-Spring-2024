@@ -1,0 +1,27 @@
+---
+title: "Week 1 Day 2 - Active Learning and Viz"
+author: "S&DS 361"
+date: "2024-01-18"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## First
+
+- Git, GitHub, GitHub Desktop intro
+- Active Learning
+    - https://news.harvard.edu/gazette/story/2019/09/study-shows-that-students-learn-more-when-taking-part-in-classrooms-that-employ-active-learning-strategies/
+- Example visualizations, pros and cons, best practices.
+    - CNBC article: https://www.cnbc.com/2023/12/08/automakers-turn-to-hybrids-ev-transition.html
+    - https://www.reuters.com/business/autos-transportation/ford-slashes-prices-f-150-lightning-trucks-base-variant-cost-17-less-2023-07-17/
+
+
+## Next 
+- Visualization best practices 
+- More examples
+- `ggplot2` and `dplyr`.
+https://bmacgtpm.github.io/notes/data-exploration-with-dplyr.html
+- Water Usage. https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2022WR032804
