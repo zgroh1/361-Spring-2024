@@ -1,6 +1,6 @@
 ---
 title: "Week 1 Day 2 - Active Learning and Viz"
-author: "S&DS 361"
+author: "S&DS 361, Spring 2024"
 date: "2024-01-18"
 output: ioslides_presentation
 ---
