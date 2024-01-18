@@ -1,0 +1,469 @@
+---
+title: "Intro to Data Visualization"
+author: "Brian Macdonald"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(plotly)
+library(scales)
+library(pubtheme)
+library(knitr)
+knitr::opts_chunk$set(echo = F, 
+                      include=T, 
+                      warning=F, 
+                      message=F, 
+                      comment=NA, 
+                      fig.align='center')
+```
+
+## Overview
+
+- Why data viz? 
+- Types of viz
+- Best practices
+- What to watch for when reading viz or avoid when creating viz
+
+## Why Data Viz?
+
+Communicating data
+
+-	Raw data
+-	Summaries of raw data, reports
+- Results of predictive models
+
+Data analysts use it in every step of the data analysis workflow:
+
+- Data is the foundation, but is often messy, so use viz while collecting, organizing, merging, checking etc., data sets. Identify outliers and potential inaccurate data
+- Assess the results of models
+- Checking your work every step
+- etc
+
+
+---
+
+```{r  out.width = "80%", echo=F}
+include_graphics('img/TB Attendance.jpg') 
+```
+
+---
+
+```{r  out.width = "80%", echo=F}
+include_graphics('img/MIN Attendance.jpg') 
+```
+
+## Why not just use a table?
+-	Tables of numbers can be used for those similar purposes, often effectively.  Viz can often convey the most important information more quickly and easily
+
+- Often relative relationships are more important than exact numbers
+    +	If exact numbers are important, they can go in a table or can sometimes be shown in viz (e.g. `geom_text`)
+
+-	Some relationships are difficult to express in a table
+    +	Spatial relationships (location)
+    + Temporal relationships (time)
+    + Spatial temporal relationships (location and time)
+  
+## Spatial: Sales by Zip Code 
+
+- Table with two columns
+  + zip code
+  + number of customers (or revenue, or tickets, etc.)
+  
+- Lose spatial information
+  + What zip codes are adjacent?
+  + Neighborhoods, highways, landmarks
+  + Table is not as intuitive
+
+--- 
+```{r  out.width="25%", echo=F, fig.align='center'}
+include_graphics('img/South FL map - just 1st one.png') 
+```
+
+## Temporal: New COVID Cases By Date
+
+```{r echo=F}
+d = read.csv('data/owid-covid-data.csv')
+dg = d %>% 
+  filter(location=='United States') %>% 
+  select(date, new_cases) %>%
+  filter(date >= '2020-09-01') %>%
+  mutate(date = as.Date(date)) %>%
+  head(12)
+print(dg,row.names = F)
+```
+\pause 
+
+No obvious trends.
+
+## Temporal: New COVID Cases By Date
+
+```{r  out.width = "70%", echo=F}
+include_graphics('img/New COVID Cases By Date.jpg') 
+```
+
+## Temporal: Sales by Event Date
+
+```{r, echo=F}
+d = readRDS('data/mlb.attendance.data.rds')
+dg = d %>% 
+  filter(season==max(season))%>%
+  select(date, away, home, attendance) %>%
+  head(12)
+print(dg, row.names=F)
+```
+\pause 
+No obvious weekly trends.
+
+## Temporal: Sales by Event Date
+
+```{r  out.width = "70%", echo=F}
+include_graphics('img/MLB Attendance with rolling average.jpg') 
+```
+	
+
+## Types of viz
+
+- Bar
+- Line 
+- Scatter
+- Histogram
+- Heat map
+
+## Bar chart 
+- Or "bar graph", "bar plot"
+- Categorical data
+- Bar for each category, length of bar according to some value
+- Example: Alcohol use by age
+    + Age ranges - categorical
+    + Percentage of those in range who used in the past 12 months - value used as length of the bars 
+    
+## Bar chart 
+
+```{r  out.width = "70%", echo=F}
+include_graphics('img/Alcohol Use By Age.jpg') 
+```
+	
+
+##	Line chart 
+
+- Or "line graph", "line plot"
+- Often used to display trends in numeric data over time
+- Example: New COVID Cases By Date
+
+\pause
+
+```{r  out.width = "50%", echo=F}
+include_graphics('img/New COVID Cases By Date.jpg') 
+```
+
+## Line Chart
+- If there aren't many data points, can show points too. 
+- Example: Player rating over time
+    + Year - the measure of time
+    + Player rating - numeric data we want to the trend for
+    
+\pause
+
+```{r  out.width = "40%", echo=F}
+include_graphics('img/LeBron and Giannis with image.jpg') 
+```
+
+## Scatter plot
+- Display the relationship between two numeric variables in a data set
+- Example: Cost vs Interventions for heart disease patients
+    + Interventions - numeric
+    + Total cost - also numeric
+
+## Scatter plot
+
+```{r  out.width = "70%", echo=F}
+include_graphics('img/Cost vs Interventions.jpg') 
+```
+
+## Scatter plot
+
+```{r  out.width = "70%", echo=F}
+include_graphics('img/Cost vs Interventions - Transparency.jpg') 
+```
+
+## Scatter plot
+```{r  out.width = "70%", echo=F}
+include_graphics('img/Cost vs Interventions - Transparency, Log Scales.jpg') 
+```
+
+## Scatter plot
+```{r  out.width = "70%", echo=F}
+include_graphics('img/Cost vs Interventions - Transparency, Log Scales, Jitter.jpg') 
+```
+
+## Scatter plot
+```{r  out.width = "70%", echo=F}
+include_graphics('img/Cost vs Interventions - with trend line.jpg') 
+```
+
+
+## Scatter plot
+- Size or color dots based on other information
+\pause
+```{r  out.width = "90%", echo=F}
+include_graphics('img/Map of Inital Hubs and Confirmed Partners.png') 
+```
+
+
+## Histogram
+- Numeric data (unlike categorical data for bar plot)
+- Shows ranges of values, how often they occur
+- Different than bar chart (which was for categorical data)
+
+## Histogram
+
+```{r  out.width = "70%", echo=F}
+include_graphics('img/Distribution of the Number of Interventions.jpg') 
+```
+
+## Heat maps
+Use color to show magnitude of numeric data over 2 dimensions
+
+\pause
+
+```{r  out.width = "80%", echo=F}
+include_graphics('img/South FL maps.png') 
+```
+
+## Heat maps
+
+```{r  out.width = "70%", echo=F}
+include_graphics('img/Hospital Ratings in PA.jpg') 
+```
+
+## Heat maps
+
+```{r  out.width = "100%", echo=F}
+include_graphics('img/Hospital Ratings By State - flipped.jpg') 
+```
+
+## Best practices
+
+- Ensure viz answers a question, highlights an observation, serves some academic or business purpose
+-	Simple, to the point. 
+    + Use types of charts people are familiar with and can understand easily, highlight main takeaways
+    + Avoid distracting colors and unnecessary features from the main takeaways
+    + Avoid TMI.
+
+-	Use color wisely
+    +	draw attention to main takeaway(s)
+    + separate context/background data and the data of interest
+    +	indicate different categories
+
+## Best practices
+
+- Label well
+    +	Title - always
+    + Axes - very often
+    + Legend - when applicable
+
+-	Give context
+    +	What is average? 
+    +	What is a normal range? 
+    +	What was it last year?
+
+- Show uncertainty when possible/appropriate
+- Show dots (raw data) when possible
+
+## Best practices {.smaller}
+
+Consider the audience and platform. May want different versions depending on the audience/platform/medium.
+
+- can have more/fewer details
+- highlight different things. Key takeaways may be different
+
+Audience
+
+- Advisor, Manager
+- Research group, Analytics team
+- Customers
+- Media, Social media
+
+Platform
+
+- Written documents on computer
+- Written documents on paper
+- Slides, Video
+- Social media
+
+  
+## What to watch for (when reading) and avoid (when creating) viz
+
+Viz with no clear takeaway
+
+- Is the chart showing relevant and appropriate information? 
+- Does it answer a question appropriately? 
+- Is the metric appropriate? Should it be a rate or percentage instead of a count?
+
+
+## Pay attention to axes
+-	Axes that don’t start at zero
+    +	This can be the default in some software packages
+    +	Can give misleading differences in bar lengths
+    +	Ex: Treatment vs placebo comparison
+
+\pause 
+
+```{r  out.width = "90%", echo=F}
+include_graphics('img/Treatment and Placebo.jpg') 
+```
+
+## Pay attention to axes
+-	Broken axes
+  	+ Misleading differences in bars, for example
+-	Scale of axes
+    + What is the range of values? Very small or large?
+    + Is log scale being used?
+
+\pause
+
+```{r  out.width = "40%", echo=F}
+include_graphics('img/Cost vs Interventions - Transparency, Log Scales, Jitter.jpg') 
+```
+
+##	Sample size and potential impacts
+- If a result looks weird, could it be a sample size issue? 
+-	Different sized bins, different sized groups when binned
+    +	Ex. Drug use by age 
+    
+\pause
+
+```{r  out.width = "50%", echo=F}
+include_graphics('img/Alcohol Use By Age.jpg') 
+```
+
+
+
+## Inappropriate choice of viz type
+
+- Line chart with categorical data on horizontal axes
+    + Bar chart is probably better
+-	Pie charts 
+    +	Use for proportions. 
+    + Even with proportions, can be tough to compare categories
+    + Can you use a bar chart?
+
+## Inappropriate choice of viz type
+
+-	Radar charts
+    +	Areas can be misleading, have no meaning
+    + Difficult to compare categories
+    + Can you use a bar chart?
+
+\pause
+
+```{r  out.width = "70%", echo=F}
+include_graphics('img/SpiderChartWikipedia.jpg') 
+```
+    
+## Inappropriate choice of viz type
+- 3D bar chart
+    +	Unnecessary third dimension can yield misleading bar heights
+    + Adds clutter/distraction, provides no information
+    + Can you use a (2D) bar chart?  
+-	Stacked bars
+    +	In some cases, appropriate
+    + In some cases, tough to compare
+    +	Can you use separate bar charts?
+
+## Stacked bars
+```{r out.width="60%", echo=F}
+## created by manually saving in RStudio
+include_graphics('img/Drug Use By Age - Stacked bars.jpeg') 
+```
+
+## Alternative
+```{r  out.width = "50%", echo=F}
+## created by manually saving in RStudio
+include_graphics('img/Drug Use By Age - Faceted.jpg') 
+```
+
+
+
+## Difficult to distinguish colors
+
+-	Too many colors, difficult to distinguish. 
+-	Colors that are not colorblind-friendly
+    +	Choose a different palette, or 
+    + Use different shapes (e.g. circles, squares, diamonds) or lines (e.g. solid, dotted, dashed) to further distinguish 
+    
+Note: 5% of the population (mostly male) is Red-Green colorblind
+
+- Avoid red and green together, without other ways to distinguish. 
+- Green/Yellow/Red is a frequently-used color palette.  
+
+## Not Colorblind friendly
+```{r out.width = "70%", echo=F}
+## created by manually saving in RStudio
+include_graphics('img/Drug Use By Age - Stacked bars.jpeg') 
+```
+
+## Colorblind friendly
+```{r  out.width = "70%", echo=F}
+## created by manually saving in RStudio
+include_graphics('img/Drug Use By Age - Colorblind friendly.jpeg') 
+```
+
+## Interactive visualization
+
+Want the option of more information, but don't want to clutter the viz. 
+
+Show information on hover
+
+
+## Animation
+
+Want to show trends in data over time, but line plot is too simple.
+
+Example: Player and ball locations over time, 25 times a second.
+Impossible to process by looking at the data set.
+
+```{r out.width="70%"}
+include_graphics('img/bball.locations.gif')
+```
+
+\vfill
+
+## Recap {.smaller}
+
+Visualization is for understanding and communicating data, and it ideally
+
+- answers a question,
+- highlights a key observation or takeaway from analysis,
+- summarizes important information, 
+- helps analysts understand data and identify problems, or 
+- serves some other purpose,
+
+does those
+
+- clearly, and
+- concisely
+
+and is appropriate for 
+
+- the intended audience
+- the intended platform
+
+## Discussion
+
+- What is the purpose?
+
+  + What is the question you are trying to answer? 
+
+- Who is the audience? 
+
+  + Is your visualization appropriate for this audience?
+
+- In what context will they see this visualization?
+- What is the key observation or takeaway? 
+
+  + Is that obvious from a quick look at the visualization? 
+  + Can color or labeling be used to highlight the main takeaway?
+    
+- Does the visualization have unnecessary features that distract from the main takeaway?
