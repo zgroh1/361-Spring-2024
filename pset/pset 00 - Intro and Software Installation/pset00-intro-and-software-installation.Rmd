@@ -118,8 +118,8 @@ a = g +
 #a  ## check that the animation works
 
 ## save the animation
-#anim_save(a, 
-#          filename = 'img/test animation.gif')
+# anim_save(a, 
+#           filename = 'img/test animation.gif')
 
 ```
 
