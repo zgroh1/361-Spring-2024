@@ -5,6 +5,8 @@ output:
   pdf_document: default
   word_document: default
   html_document: default
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
@@ -26,7 +28,7 @@ library(knitr)
 
 After you submit the quiz, take a screenshot of the time stamp and Question 1. It should look something like this. 
 
-![](img/snip of Course Survey.png)
+![](img/snip of Course Survey Yuyang Sun.png)
 
 Edit the above file name and path to show your screenshot and ensure that it appears when you knit your document. 
 
@@ -107,7 +109,7 @@ g = ggplot(iris,
             aes(x = Petal.Width, 
                 y = Petal.Length)) + 
   geom_point() + 
-  ggtitle("Brian Macdonald's animation")
+  ggtitle("Yuyang Sun's animation")
 g
 
 a = g + 
@@ -115,11 +117,11 @@ a = g +
                     transition_length = 2,
                     state_length = 1)
 
-#a  ## check that the animation works
+a  ## check that the animation works
 
 ## save the animation
-# anim_save(a, 
-#           filename = 'img/test animation.gif')
+anim_save(a, 
+           filename = 'img/test animation.gif')
 
 ```
 
@@ -127,7 +129,7 @@ There should be a static plot and an animated plot above.
 If the `anim_save` worked properly there should be a new `test.gif`
 in the `img` folder that has your name. Take a screen shot of your animated gif when the points are near the upper right and show the screenshot here: 
 
-![](img/snip of test animation.png)
+![](img/snip of test animation Yuyang Sun.png)
 
 
 If all of that works, `gganimate` is good to go!  If that doesn't work, see the tips at https://bmacgtpm.github.io/notes/software-installation.html.
@@ -148,7 +150,7 @@ See https://bmacgtpm.github.io/notes/software-installation.html.
 Take a screenshot showing Github Desktop (or different software, or the command line) and show it here. 
 
 
-![](img/snip of GitHub Desktop.png)
+![](img/snip of GitHub Desktop Yuyang Sun.png)
 
 If you have experience with Git/Github, and prefer to use different software or the command line, that's fine, but we may not be able to help if you have a problem.
 
