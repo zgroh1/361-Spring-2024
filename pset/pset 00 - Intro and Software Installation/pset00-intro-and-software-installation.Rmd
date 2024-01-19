@@ -26,7 +26,7 @@ library(knitr)
 
 After you submit the quiz, take a screenshot of the time stamp and Question 1. It should look something like this. 
 
-![](img/snip of Course Survey.png)
+![](img/Course Survey.jpg)
 
 Edit the above file name and path to show your screenshot and ensure that it appears when you knit your document. 
 
@@ -58,7 +58,7 @@ Do not write R code for installing packages in this R Markdown. You don't want p
 
 Check that you can load all of the libraries by running this chunk of code and showing that it executes without error. There may be some messages, and maybe warnings about versions. Those are ok. Make sure the output appears when you knit the document. 
 
-```{r error=T}
+```{r error=T, message=TRUE, warning=TRUE}
 library(knitr)
 library(plotly)
 library(scales)
@@ -107,7 +107,7 @@ g = ggplot(iris,
             aes(x = Petal.Width, 
                 y = Petal.Length)) + 
   geom_point() + 
-  ggtitle("Brian Macdonald's animation")
+  ggtitle("Katherine Zhang's animation")
 g
 
 a = g + 
@@ -115,11 +115,11 @@ a = g +
                     transition_length = 2,
                     state_length = 1)
 
-#a  ## check that the animation works
+a  ## check that the animation works
 
 ## save the animation
-# anim_save(a, 
-#           filename = 'img/test animation.gif')
+anim_save(a, 
+          filename = 'img/test animation.gif')
 
 ```
 
