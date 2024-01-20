@@ -107,7 +107,7 @@ g = ggplot(iris,
             aes(x = Petal.Width, 
                 y = Petal.Length)) + 
   geom_point() + 
-  ggtitle("Brian Macdonald's animation")
+  ggtitle("Helen Zheng's animation")
 g
 
 a = g + 
@@ -115,7 +115,7 @@ a = g +
                     transition_length = 2,
                     state_length = 1)
 
-#a  ## check that the animation works
+# a  ## check that the animation works
 
 ## save the animation
 # anim_save(a, 
@@ -165,6 +165,18 @@ See https://bmacgtpm.github.io/notes/github-copilot-in-rstudio.html.
 ![](img/snip of GitHub Copilot.png)
 
 If you use Github Copilot elsewhere, take a screenshot of whatever software you use.
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
