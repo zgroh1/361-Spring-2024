@@ -165,6 +165,3 @@ See https://bmacgtpm.github.io/notes/github-copilot-in-rstudio.html.
 ![](img/GitHub Copilot.jpg)
 
 If you use Github Copilot elsewhere, take a screenshot of whatever software you use.
-
-
-
