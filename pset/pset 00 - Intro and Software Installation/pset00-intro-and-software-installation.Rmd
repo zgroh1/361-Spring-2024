@@ -26,7 +26,7 @@ library(knitr)
 
 After you submit the quiz, take a screenshot of the time stamp and Question 1. It should look something like this. 
 
-![](img/snip of Course Survey.png)
+![](/Users/eddiecavallin/Desktop/Screenshot 2024-01-20 at 6.58.39 PM.png)
 
 Edit the above file name and path to show your screenshot and ensure that it appears when you knit your document. 
 
